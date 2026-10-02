@@ -1,0 +1,245 @@
+# Настройки админки Sveltia CMS (https://sveltiacms.app/en/docs).
+# Админка открывается по адресу /admin/. Сохранение записи = коммит в GitHub,
+# после него GitHub Actions пересобирает сайт и выкладывает его на хостинг (.github/workflows/deploy.yml).
+
+backend:
+  name: github
+  # Репозиторий на GitHub: владелец/название. Поменять, если репозиторий переедет.
+  repo: vtulkinvalentin-art/triton-mebel
+  branch: main
+  commit_messages:
+    create: 'Админка: добавлено «{{slug}}» ({{collection}})'
+    update: 'Админка: изменено «{{slug}}» ({{collection}})'
+    delete: 'Админка: удалено «{{slug}}» ({{collection}})'
+    uploadMedia: 'Админка: загружено фото {{path}}'
+    deleteMedia: 'Админка: удалено фото {{path}}'
+
+# Адрес сайта для ссылок «Открыть на сайте». Сейчас тестовый хостинг; при переезде на боевой домен
+# поменять на https://lp.mebel69.ru (вместе с переменной SITE_URL в GitHub).
+site_url: http://dimitrjz.beget.tech
+display_url: http://dimitrjz.beget.tech
+
+# Фото, загруженные не в конкретный раздел
+media_folder: /public/images/uploads
+public_folder: /images/uploads
+
+media_libraries:
+  all:
+    # Фото с телефона уменьшаются прямо в браузере до загрузки: до 2400 px по большей стороне, WebP.
+    # Варианты AVIF/WebP разных размеров сайт делает сам при сборке.
+    max_file_size: 25000000
+    slugify_filename: true
+    transformations:
+      raster_image:
+        format: webp
+        quality: 88
+        width: 2400
+        height: 2400
+
+# Адреса страниц и имена файлов только латиницей
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  # ---------------------------------------------------------------- Новости
+  - name: news
+    label: Новости
+    label_singular: новость
+    description: Новости фабрики. Страница новости появится по адресу /novosti/<адрес>/.
+    folder: /src/content/novosti
+    extension: md
+    format: frontmatter
+    slug: &slug
+      editable: [create]
+      hint: 'Часть адреса страницы латиницей, например novyj-salon. Потом его не поменять.'
+      pattern: ['^[a-z0-9]+(-[a-z0-9]+)*$', 'Только строчные латинские буквы, цифры и дефис между словами']
+    media_folder: /public/images/novosti
+    public_folder: /images/novosti
+    preview_path: /novosti/{{slug}}/
+    identifier_field: title
+    summary: "{{date | date('DD.MM.YYYY')}} · {{title}}{{draft | ternary(' (черновик)', '')}}"
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
+    fields:
+      - &title
+        name: title
+        label: Заголовок для поисковика (title)
+        hint: 'До 70 символов. Показывается во вкладке браузера и в выдаче Яндекса. Без длинного тире.'
+        widget: string
+        pattern: ['^[^—–]{10,70}$', 'От 10 до 70 символов, без длинного и среднего тире']
+      - &description
+        name: description
+        label: Описание для поисковика (description)
+        hint: 'От 70 до 170 символов. Показывается в выдаче Яндекса под заголовком.'
+        widget: text
+        pattern: ['^[^—–\n]{70,170}$', 'От 70 до 170 символов, одной строкой, без длинного и среднего тире']
+      - name: h1
+        label: Заголовок на странице
+        hint: 'Можно не заполнять: тогда будет как заголовок для поисковика.'
+        widget: string
+        required: false
+      - &date
+        name: date
+        label: Дата
+        widget: datetime
+        type: date
+        default: '{{now}}'
+      - &excerpt
+        name: excerpt
+        label: Анонс
+        hint: 'Одно-два предложения. Показывается в карточке и под заголовком.'
+        widget: text
+      - name: cover
+        label: Обложка
+        hint: 'Необязательно. Лучше горизонтальное фото, от 1600 px в ширину.'
+        widget: object
+        required: false
+        fields: &imageFields
+          - { name: src, label: Фото, widget: image }
+          - { name: alt, label: Что на фото (для поисковиков и незрячих), widget: string }
+          - { name: caption, label: Сюжет для заглушки, widget: string, required: false, hint: 'Можно не заполнять.' }
+      - &draft
+        name: draft
+        label: Черновик
+        hint: 'Черновик не показывается на сайте.'
+        widget: boolean
+        default: false
+      - &body
+        name: body
+        label: Текст
+        widget: richtext
+        hint: 'Разделы оформляйте заголовками («Заголовок 2»). Не используйте длинное тире (—), только запятую, точку, двоеточие.'
+
+  # ---------------------------------------------------------------- Статьи
+  - name: articles
+    label: Статьи
+    label_singular: статью
+    description: Статьи блога. Страница статьи появится по адресу /stati/<адрес>/.
+    folder: /src/content/articles
+    extension: md
+    format: frontmatter
+    slug: *slug
+    media_folder: /public/images/articles
+    public_folder: /images/articles
+    preview_path: /stati/{{slug}}/
+    identifier_field: title
+    summary: "{{date | date('DD.MM.YYYY')}} · {{h1}}{{draft | ternary(' (черновик)', '')}}"
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
+    fields:
+      - *title
+      - *description
+      - name: h1
+        label: Заголовок на странице
+        widget: string
+      - *date
+      - name: updated
+        label: Дата обновления
+        hint: 'Заполните, если заметно поменяли текст.'
+        widget: datetime
+        type: date
+        required: false
+      - name: category
+        label: Рубрика
+        widget: select
+        options:
+          - { label: Кухни, value: kuhni }
+          - { label: Шкафы и гардеробные, value: shkafy }
+          - { label: Материалы и фурнитура, value: materialy }
+          - { label: Замер и заказ, value: zakaz }
+      - *excerpt
+      - name: cover
+        label: Обложка
+        hint: 'Горизонтальное фото, от 1600 px в ширину.'
+        widget: object
+        fields: *imageFields
+      - name: relatedServices
+        label: Ссылки «По теме статьи»
+        hint: 'Страницы услуг, которые показать под статьёй.'
+        widget: select
+        multiple: true
+        required: false
+        options: &services
+          - { label: Кухни на заказ, value: /kuhni/ }
+          - { label: Угловые кухни, value: /kuhni/uglovye/ }
+          - { label: Прямые кухни, value: /kuhni/pryamye/ }
+          - { label: Кухни до потолка, value: /kuhni/do-potolka/ }
+          - { label: Кухни из МДФ, value: /kuhni/iz-mdf/ }
+          - { label: Кухни из ЛДСП, value: /kuhni/iz-ldsp/ }
+          - { label: Шкафы-купе, value: /shkafy-kupe/ }
+          - { label: Гардеробные, value: /garderobnye/ }
+          - { label: Прихожие, value: /prihozhie/ }
+          - { label: Детская мебель, value: /detskie/ }
+          - { label: Мебель для гостиной, value: /mebel-dlya-gostinoy/ }
+          - { label: Для дома и сада, value: /dlya-doma-i-sada/ }
+          - { label: Подоконники, value: /podokonniki/ }
+          - { label: Межкомнатные двери, value: /dveri/ }
+          - { label: Садовая мебель, value: /sadovaya-mebel/ }
+      - *draft
+      - *body
+
+  # ---------------------------------------------------------------- Наши работы
+  - name: works
+    label: Наши работы
+    label_singular: работу
+    description: Портфолио. Новая работа добавляется в конец своей категории, порядок можно менять перетаскиванием.
+    file: /src/content/works.json
+    media_folder: /public/images/works
+    public_folder: /images/works
+    identifier_field: title
+    summary: '{{title}}'
+    fields:
+      - { name: title, label: Название, widget: string, hint: 'Например: Угловая кухня с островом' }
+      - name: category
+        label: Категория
+        widget: select
+        options:
+          - { label: Кухни, value: kuhni }
+          - { label: Шкафы-купе, value: shkafy-kupe }
+          - { label: Гардеробные, value: garderobnye }
+          - { label: Прихожие, value: prihozhie }
+          - { label: Детские, value: detskie }
+          - { label: Гостиные, value: gostinye }
+          - { label: Для дома и сада, value: dom-i-sad }
+      - { name: text, label: Описание, widget: text, hint: 'Одно-два предложения: материалы, особенности.' }
+      - name: image
+        label: Главное фото
+        widget: object
+        fields: *imageFields
+      - name: gallery
+        label: Ещё фото
+        hint: 'Откроются при клике на работу.'
+        widget: list
+        required: false
+        summary: '{{fields.alt}}'
+        fields: *imageFields
+      - { name: featured, label: Показывать на главной, widget: boolean, default: false }
+
+  # ---------------------------------------------------------------- Отзывы
+  - name: reviews
+    label: Отзывы
+    label_singular: отзыв
+    description: Отзывы клиентов. На сайте показываются на /otzyvy/ и на главной.
+    file: /src/content/reviews.json
+    media_folder: /public/images/reviews
+    public_folder: /images/reviews
+    identifier_field: name
+    summary: '{{name}} · {{furniture}}'
+    fields:
+      - { name: name, label: Имя клиента, widget: string, hint: 'Имя и первая буква фамилии, например: Анна К.' }
+      - { name: furniture, label: Что заказывали, widget: string, hint: 'Например: Кухня, Шкаф-купе' }
+      - { name: text, label: Текст отзыва, widget: text }
+      - name: photo
+        label: Фото мебели от клиента
+        hint: 'Необязательно. Без лиц людей.'
+        widget: object
+        required: false
+        fields: *imageFields
+      - { name: source, label: Откуда отзыв, widget: string, required: false, default: 'клиент фабрики', hint: 'Для себя, на сайте не показывается.' }
