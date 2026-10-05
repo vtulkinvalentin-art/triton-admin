@@ -178,7 +178,9 @@ collections:
           - { label: Прихожие, value: /prihozhie/ }
           - { label: Детская мебель, value: /detskie/ }
           - { label: Мебель для гостиной, value: /mebel-dlya-gostinoy/ }
-          - { label: Для дома и сада, value: /dlya-doma-i-sada/ }
+          - { label: Для дома и дачи, value: /dlya-doma-i-dachi/ }
+          - { label: Лестницы, value: /lestnicy/ }
+          - { label: Мебель для ванной, value: /mebel-dlya-vannoj/ }
           - { label: Подоконники, value: /podokonniki/ }
           - { label: Межкомнатные двери, value: /dveri/ }
           - { label: Садовая мебель, value: /sadovaya-mebel/ }
@@ -216,7 +218,8 @@ collections:
           - { label: Прихожие, value: prihozhie }
           - { label: Детские, value: detskie }
           - { label: Гостиные, value: gostinye }
-          - { label: Для дома и сада, value: dom-i-sad }
+          - { label: Мебель для ванной, value: vannye }
+          - { label: Для дома и дачи, value: dom-i-sad }
       - { name: text, label: Описание, widget: text, hint: 'Одно-два предложения: материалы, особенности.' }
       - name: image
         label: Главное фото
