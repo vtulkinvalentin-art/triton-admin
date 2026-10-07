@@ -243,10 +243,16 @@ collections:
     media_folder: /public/images/reviews
     public_folder: /images/reviews
     identifier_field: name
-    summary: '{{name}} · {{furniture}}'
+    summary: "{{moderation | ternary('НА МОДЕРАЦИИ · ', '')}}{{name}} · {{furniture}}"
     fields:
       - { name: name, label: Имя клиента, widget: string, hint: 'Имя и первая буква фамилии, например: Анна К.' }
-      - { name: furniture, label: Что заказывали, widget: string, hint: 'Например: Кухня, Шкаф-купе' }
+      - name: moderation
+        label: На модерации (не показывать на сайте)
+        hint: 'Отзывы из формы на сайте приходят с этой галочкой. Проверьте текст и фото, затем снимите галочку и сохраните, чтобы опубликовать.'
+        widget: boolean
+        default: false
+        required: false
+      - { name: furniture, label: Что заказывали, widget: string, required: false, hint: 'Например: Кухня, Шкаф-купе' }
       - { name: text, label: Текст отзыва, widget: text }
       - name: photo
         label: Фото мебели от клиента
