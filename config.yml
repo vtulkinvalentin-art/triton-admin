@@ -253,6 +253,12 @@ collections:
         default: false
         required: false
       - { name: furniture, label: Что заказывали, widget: string, required: false, hint: 'Например: Кухня, Шкаф-купе' }
+      - name: date
+        label: Дата отзыва
+        hint: 'Только настоящая дата, когда клиент оставил отзыв. У отзывов из формы на сайте ставится сама. Если не знаете, оставьте пустым: дата не покажется.'
+        widget: datetime
+        type: date
+        required: false
       - { name: text, label: Текст отзыва, widget: text }
       - name: photo
         label: Фото мебели от клиента
