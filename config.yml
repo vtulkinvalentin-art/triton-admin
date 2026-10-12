@@ -184,6 +184,10 @@ collections:
           - { label: Подоконники, value: /podokonniki/ }
           - { label: Межкомнатные двери, value: /dveri/ }
           - { label: Садовая мебель, value: /sadovaya-mebel/ }
+          - { label: Столы из массива, value: /stoly-iz-massiva/ }
+          - { label: Кровати из массива, value: /krovati-iz-massiva/ }
+          - { label: Мебель для бани, value: /mebel-dlya-bani/ }
+          - { label: Мебель для мансарды, value: /mebel-dlya-mansardy/ }
       - name: faq
         label: Частые вопросы
         hint: 'Необязательно. Вопросы и короткие ответы под статьёй. Яндекс может показать их прямо в выдаче.'
