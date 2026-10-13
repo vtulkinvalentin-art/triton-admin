@@ -180,6 +180,7 @@ collections:
           - { label: Мебель для гостиной, value: /mebel-dlya-gostinoy/ }
           - { label: Для дома и дачи, value: /dlya-doma-i-dachi/ }
           - { label: Лестницы, value: /lestnicy/ }
+          - { label: Перегородки, value: /peregorodki/ }
           - { label: Мебель для ванной, value: /mebel-dlya-vannoj/ }
           - { label: Подоконники, value: /podokonniki/ }
           - { label: Межкомнатные двери, value: /dveri/ }
