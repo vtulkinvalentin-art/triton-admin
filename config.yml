@@ -173,7 +173,7 @@ collections:
           - { label: Кухни до потолка, value: /kuhni/do-potolka/ }
           - { label: Кухни из МДФ, value: /kuhni/iz-mdf/ }
           - { label: Кухни из ЛДСП, value: /kuhni/iz-ldsp/ }
-          - { label: Шкафы-купе, value: /shkafy-kupe/ }
+          - { label: Шкафы и шкафы-купе, value: /shkafy-kupe/ }
           - { label: Гардеробные, value: /garderobnye/ }
           - { label: Прихожие, value: /prihozhie/ }
           - { label: Детская мебель, value: /detskie/ }
@@ -218,7 +218,7 @@ collections:
         widget: select
         options:
           - { label: Кухни, value: kuhni }
-          - { label: Шкафы-купе, value: shkafy-kupe }
+          - { label: Шкафы, value: shkafy-kupe }
           - { label: Гардеробные, value: garderobnye }
           - { label: Прихожие, value: prihozhie }
           - { label: Детские, value: detskie }
