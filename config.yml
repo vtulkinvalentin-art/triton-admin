@@ -173,11 +173,21 @@ collections:
           - { label: Кухни до потолка, value: /kuhni/do-potolka/ }
           - { label: Кухни из МДФ, value: /kuhni/iz-mdf/ }
           - { label: Кухни из ЛДСП, value: /kuhni/iz-ldsp/ }
+          - { label: П-образные кухни, value: /kuhni/p-obraznye/ }
+          - { label: Кухни с островом, value: /kuhni/s-ostrovom/ }
+          - { label: Маленькие кухни, value: /kuhni/malenkie/ }
+          - { label: Недорогие кухни, value: /kuhni/nedorogie/ }
+          - { label: Столешницы для кухни, value: /kuhni/stoleshnicy/ }
           - { label: Шкафы и шкафы-купе, value: /shkafy-kupe/ }
+          - { label: Встроенные шкафы, value: /shkafy-kupe/vstroennye/ }
+          - { label: Распашные шкафы, value: /shkafy-kupe/raspashnye/ }
+          - { label: Шкафы в прихожую, value: /shkafy-kupe/v-prihozhuyu/ }
           - { label: Гардеробные, value: /garderobnye/ }
           - { label: Прихожие, value: /prihozhie/ }
+          - { label: Прихожие в узкий коридор, value: /prihozhie/uzkie/ }
           - { label: Детская мебель, value: /detskie/ }
           - { label: Мебель для гостиной, value: /mebel-dlya-gostinoy/ }
+          - { label: Стенки в гостиную, value: /mebel-dlya-gostinoy/stenki/ }
           - { label: Для дома и дачи, value: /dlya-doma-i-dachi/ }
           - { label: Лестницы, value: /lestnicy/ }
           - { label: Перегородки, value: /peregorodki/ }
@@ -253,14 +263,14 @@ collections:
       - { name: name, label: Имя клиента, widget: string, hint: 'Имя и первая буква фамилии, например: Анна К.' }
       - name: moderation
         label: На модерации (не показывать на сайте)
-        hint: 'Отзывы из формы на сайте приходят с этой галочкой. Проверьте текст и фото, затем снимите галочку и сохраните, чтобы опубликовать.'
+        hint: 'С этой галочкой отзыв на сайте не показывается (черновик). Формы отзывов на сайте нет, отзывы добавляются только вручную, с согласия клиента на публикацию.'
         widget: boolean
         default: false
         required: false
       - { name: furniture, label: Что заказывали, widget: string, required: false, hint: 'Например: Кухня, Шкаф-купе' }
       - name: date
         label: Дата отзыва
-        hint: 'Только настоящая дата, когда клиент оставил отзыв. У отзывов из формы на сайте ставится сама. Если не знаете, оставьте пустым: дата не покажется.'
+        hint: 'Только настоящая дата, когда клиент оставил отзыв. Если не знаете, оставьте пустым: дата не покажется.'
         widget: datetime
         type: date
         required: false
