@@ -14,10 +14,10 @@ backend:
     uploadMedia: 'Админка: загружено фото {{path}}'
     deleteMedia: 'Админка: удалено фото {{path}}'
 
-# Адрес сайта для ссылок «Открыть на сайте». Сейчас тестовый хостинг Timeweb; при переезде на боевой домен
+# Адрес сайта для ссылок «Открыть на сайте» (боевой домен с 23.10.2026). Раньше: тестовый хостинг Timeweb;
 # поменять на https://lp.mebel69.ru (вместе с переменной SITE_URL в GitHub).
-site_url: https://cw240645.tw1.ru
-display_url: https://cw240645.tw1.ru
+site_url: https://lp.mebel69.ru
+display_url: https://lp.mebel69.ru
 
 # Фото, загруженные не в конкретный раздел
 media_folder: /public/images/uploads
