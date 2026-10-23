@@ -154,6 +154,7 @@ collections:
           - { label: Шкафы и гардеробные, value: shkafy }
           - { label: Материалы и фурнитура, value: materialy }
           - { label: Замер и заказ, value: zakaz }
+          - { label: Для дома, value: dom }
       - *excerpt
       - name: cover
         label: Обложка
